@@ -72,7 +72,7 @@ async function getFileList(url: URL, request: Request, env: Env, ctx: ExecutionC
 			name: file.fileName,
 			size: file.contentLength,
 			contentType: file.contentType,
-			uploadTime: new Date(file.uploadTimestamp).toUTCString(),
+			uploadTime: new Date(file.uploadTimestamp).toISOString(),
 			url: `${downloadUrl}/file/${env.B2_BUCKET_NAME}/${file.fileName}`,
 			fileInfo: file.fileInfo,
 		}));
