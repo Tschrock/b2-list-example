@@ -47,10 +47,10 @@ You can set these secrets using the `wrangler secret` command.
 $ npx wrangler secret put B2_BUCKET_NAME
 ```
 
-Then, to publish the worker to Cloudflare, use the `wrangler publish` command.
+Then, to publish the worker to Cloudflare, use the `wrangler deploy` command.
 
 ```sh
-$ npx wrangler publish
+$ npx wrangler deploy
 ```
 
 ## Usage
