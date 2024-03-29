@@ -1,4 +1,4 @@
-cyber-b2-example
+b2-list-example
 ================
 
 A basic example of using a Cloudflare Worker to list files in a Backblaze B2 bucket.
