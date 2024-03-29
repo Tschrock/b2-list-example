@@ -45,8 +45,13 @@ export interface ErrorResponse {
  * Custom error class for B2 API errors
  */
 export class B2Error extends Error {
-	constructor(public response: ErrorResponse) {
-		super();
+	public details: string;
+	constructor(message: string, response: ErrorResponse) {
+		super(message);
+		this.details = response.message;
+	}
+	toString() {
+		return `${this.message}: ${this.details}`;
 	}
 }
 
@@ -65,7 +70,7 @@ export async function b2_authorize_account(accountId: string, applicationKey: st
 	});
 
 	if (!response.ok) {
-		throw new B2Error(await response.json());
+		throw new B2Error("Failed to authorize account", await response.json());
 	}
 
 	return response.json();
@@ -87,7 +92,7 @@ export async function b2_list_file_names(apiUrl: string, authorizationToken: str
 	});
 
 	if (!response.ok) {
-		throw new B2Error(await response.json());
+		throw new B2Error("Failed to list files", await response.json());
 	}
 
 	return response.json();
