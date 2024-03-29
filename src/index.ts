@@ -50,11 +50,11 @@ export default {
 			const filesInBucket = listFilesData.files
 				.filter(file => file.action === "upload") // Only include files that were uploaded
 				.map(file => ({
-					fileName: file.fileName,
-					url: `${downloadUrl}/file/${env.B2_BUCKET_NAME}/${file.fileName}`,
+					name: file.fileName,
+					size: file.contentLength,
 					contentType: file.contentType,
-					contentLength: file.contentLength,
-					uploadTimestamp: file.uploadTimestamp,
+					uploadTime: new Date(file.uploadTimestamp).toUTCString(),
+					url: `${downloadUrl}/file/${env.B2_BUCKET_NAME}/${file.fileName}`,
 					fileInfo: file.fileInfo,
 				}));
 

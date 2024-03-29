@@ -67,3 +67,25 @@ fetch('https://<worker_url>/api/v1/list_all_files')
   .then(response => response.json())
   .then(data => console.log(data));
 ```
+
+The response will look like this:
+```json
+[
+	{
+		"name": "/folder/file1.txt",
+		"size": 12345,
+		"contentType": "text/plain",
+		"uploadTime": "2021-01-01T00:00:00Z",
+		"url": "https://f001.backblazeb2.com/file/my-bucket-name/folder/file1.txt",
+		"fileInfo": { }
+	},
+	{
+		"name": "file2.jpg",
+		"size": 54321,
+		"contentType": "image/jpeg",
+		"uploadTime": "2021-01-01T00:00:00Z",
+		"url": "https://f001.backblazeb2.com/file/my-bucket-name/file2.jpg",
+		"fileInfo": { }
+	}
+]
+```
