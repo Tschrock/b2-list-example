@@ -50,7 +50,7 @@ async function getFileList(url: URL, request: Request, env: Env, ctx: ExecutionC
 	const cacheKey = new Request(request.url, request);
 
 	// Check if the request has a query parameter to refresh the cache
-	if(url.searchParams.has('refresh')) {
+	if (url.searchParams.has('refresh')) {
 		await caches.default.delete(cacheKey);
 	} else {
 		// If the file list is already cached, return that instead of fetching from the b2 API
@@ -86,8 +86,9 @@ async function getFileList(url: URL, request: Request, env: Env, ctx: ExecutionC
 	// Create a response with the list of files
 	const response = new Response(JSON.stringify(filesInBucket), {
 		headers: {
+			'Access-Control-Allow-Origin': '*',
 			'Content-Type': 'application/json',
-			'Cache-Control': 's-maxage=3600' // 1 hour cache
+			'Cache-Control': 's-maxage=3600', // 1 hour cache
 		},
 	});
 
