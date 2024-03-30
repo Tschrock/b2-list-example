@@ -47,11 +47,17 @@ async function getHomepage(url: URL, request: Request, env: Env, ctx: ExecutionC
 }
 
 async function getFileList(url: URL, request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-	// If the file list is already cached, return that instead of fetching from the b2 API
 	const cacheKey = new Request(request.url, request);
-	let response = await caches.default.match(cacheKey);
-	if (response) {
-		return response;
+
+	// Check if the request has a query parameter to refresh the cache
+	if(url.searchParams.has('refresh')) {
+		await caches.default.delete(cacheKey);
+	} else {
+		// If the file list is already cached, return that instead of fetching from the b2 API
+		const response = await caches.default.match(cacheKey);
+		if (response) {
+			return response;
+		}
 	}
 
 	// Authorize account
@@ -78,7 +84,7 @@ async function getFileList(url: URL, request: Request, env: Env, ctx: ExecutionC
 		}));
 
 	// Create a response with the list of files
-	response = new Response(JSON.stringify(filesInBucket), {
+	const response = new Response(JSON.stringify(filesInBucket), {
 		headers: {
 			'Content-Type': 'application/json',
 			'Cache-Control': 's-maxage=3600' // 1 hour cache
